@@ -1,10 +1,12 @@
 #!/bin/bash
 
+this_dir="$( cd "$( dirname "${BASH_SOURCE[0]}"  )" &> /dev/null && pwd  )"
+
 # fail script, if any command fails
 set -e
 
-# get single binaries
-this_dir="$( cd "$( dirname "${BASH_SOURCE[0]}"  )" &> /dev/null && pwd  )"
+# now get single binaries
+
 cd ${this_dir}/files
 
 wget https://github.com/DominicBreuker/pspy/releases/latest/download/pspy32 -O pspy32
@@ -30,12 +32,39 @@ wget https://github.com/andrew-d/static-binaries/raw/master/binaries/linux/x86_6
 wget https://github.com/andrew-d/static-binaries/raw/master/binaries/linux/x86_64/ncat -O ncat64
 wget https://github.com/r3motecontrol/Ghostpack-CompiledBinaries/raw/master/Seatbelt.exe -O seatbelt.exe
 
-# windows-binaries in /usr/share
+# now get windows-binaries in /usr/share
 cd ${this_dir}/files
 
 ln -s /usr/share/windows-binaries/nc.exe
 ln -s /usr/share/windows-resources/binaries/whoami.exe
 ln -s /usr/share/windows-resources/mimikatz/x64/mimikatz.exe mimikatzx64.exe
 ln -s /usr/share/windows-resources/mimikatz/Win32/mimikatz.exe mimikatzx86.exe
-ln -s /opt/PowerUpSQL/PowerUpSQL.ps2 powerupsql.ps1
-# todo: sharphound
+
+# now get binaries that were possibly downloaded to /opt/
+
+function link_opt_file {
+    # returns the first file matching the pattern in /opt/ directory
+    pattern="${1}"
+    path=$(find /opt -iname "${pattern}" -type f -not -path '*/transfers/*' -print 2>/dev/null | head -n1)
+
+    if [[ -n "${path}" ]]
+    then
+        fname=$(basename ${path} | awk '{ print tolower($0) }')
+        echo "Linking ${path} ..."
+        ln -s "${path}" "${fname}"
+    else
+        echo "Not found in opt: ${pattern}" >&2
+    fi
+}
+
+link_opt_file linenum.sh
+link_opt_file linux-exploit-suggester-2.pl
+link_opt_file powercat.ps1
+link_opt_file powerup.ps1
+link_opt_file sherlock.ps1
+link_opt_file subf.sh
+link_opt_file unix-privesc-check
+link_opt_file lse.sh
+link_opt_file powerview.ps1
+link_opt_file powerupsql.ps1
+link_opt_file sharphound.ps1
