@@ -69,15 +69,15 @@ cd ${this_dir}
 ###############################################################
 #---------------) Poor man's template engine (----------------#
 ###############################################################
-TEMPLATE_SUFFIX='.template'
+template_dir="${this_dir}/templates"
 
-find . -name "*${TEMPLATE_SUFFIX}" | while read FILENAME
+find "${template_dir}" -type f | while read filename
 do
-    NEW_FILENAME=${files}/$(basename ${FILENAME%.template})
-    echo "generating $NEW_FILENAME"
-    cp $FILENAME $NEW_FILENAME
-    sed -i "s/{{lhost}}/${lhost}/g" $NEW_FILENAME
-    sed -i "s/{{lport}}/${lport}/g" $NEW_FILENAME
+    new_filename=${files}/$(basename ${filename})
+    echo "generating $new_filename"
+    cp $filename $new_filename
+    sed -i "s/{{lhost}}/${lhost}/g" $new_filename
+    sed -i "s/{{lport}}/${lport}/g" $new_filename
 done
 
 
