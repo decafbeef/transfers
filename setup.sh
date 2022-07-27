@@ -67,4 +67,3 @@ link_opt_file unix-privesc-check
 link_opt_file lse.sh
 link_opt_file powerview.ps1
 link_opt_file powerupsql.ps1
-link_opt_file sharphound.ps1
