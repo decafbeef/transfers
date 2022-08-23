@@ -31,7 +31,7 @@ $ ./go.sh -m wsr64.c
 ```
 files/      # contains all files that will be hosted
 templates/  # contains templates for reverse shells, etc.
-setup.sh    # initial setup script to populate files/ directory
+install     # initial setup script to populate files/ directory
 go.sh       # script to start the webserver, generate templates, display files
 ```
 ## Filenames
