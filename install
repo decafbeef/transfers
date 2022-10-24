@@ -31,6 +31,7 @@ wget https://github.com/jpillora/chisel/releases/download/v1.7.7/chisel_1.7.7_li
 wget https://github.com/andrew-d/static-binaries/raw/master/binaries/linux/x86_64/socat -O socat64
 wget https://github.com/andrew-d/static-binaries/raw/master/binaries/linux/x86_64/ncat -O ncat64
 wget https://github.com/r3motecontrol/Ghostpack-CompiledBinaries/raw/master/Seatbelt.exe -O seatbelt.exe
+wget https://raw.githubusercontent.com/Kevin-Robertson/Powermad/master/Powermad.ps1 -O powermad.ps1
 
 # now get windows-binaries in /usr/share
 cd ${this_dir}/files
