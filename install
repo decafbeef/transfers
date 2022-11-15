@@ -33,6 +33,7 @@ wget https://github.com/andrew-d/static-binaries/raw/master/binaries/linux/x86_6
 wget https://github.com/r3motecontrol/Ghostpack-CompiledBinaries/raw/master/Seatbelt.exe -O seatbelt.exe
 wget https://raw.githubusercontent.com/Kevin-Robertson/Powermad/master/Powermad.ps1 -O powermad.ps1
 wget https://github.com/r3motecontrol/Ghostpack-CompiledBinaries/raw/master/Rubeus.exe -O rubeus.exe
+wget https://github.com/BloodHoundAD/BloodHound/raw/master/Collectors/SharpHound.exe -O sharphound.exe
 
 
 # now get windows-binaries in /usr/share
