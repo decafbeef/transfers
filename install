@@ -13,14 +13,14 @@ wget https://github.com/DominicBreuker/pspy/releases/latest/download/pspy32 -O p
 wget https://github.com/DominicBreuker/pspy/releases/latest/download/pspy64 -O pspy64
 wget https://live.sysinternals.com/accesschk.exe -O accesschk.exe
 wget https://live.sysinternals.com/psexec.exe -O psexec.exe
-wget https://github.com/ivanitlearning/Juicy-Potato-x86/releases/download/1.2/Juicy.Potato.x86.exe -O juicypotato.exe
+wget https://github.com/ivanitlearning/Juicy-Potato-x86/releases/download/1.2/Juicy.Potato.x86.exe -O juicypotato32.exe
 wget https://github.com/ohpe/juicy-potato/releases/download/v0.1/JuicyPotato.exe -O juicypotato64.exe
-curl -L https://the.earth.li/~sgtatham/putty/latest/w32/plink.exe --output plink.exe
+curl -L https://the.earth.li/~sgtatham/putty/latest/w32/plink.exe --output plink32.exe
 curl -L https://the.earth.li/~sgtatham/putty/latest/w64/plink.exe --output plink64.exe
 wget https://github.com/r3motecontrol/Ghostpack-CompiledBinaries/raw/master/SharpUp.exe -O sharpup.exe
 wget https://github.com/carlospolop/PEASS-ng/releases/latest/download/winPEASany.exe -O winpeas.exe
-wget https://github.com/carlospolop/PEASS-ng/releases/latest/download/winPEASx64.exe -O winpeasx64.exe
-wget https://github.com/carlospolop/PEASS-ng/releases/latest/download/winPEASx86.exe -O winpeasx86.exe
+wget https://github.com/carlospolop/PEASS-ng/releases/latest/download/winPEASx64.exe -O winpeas64.exe
+wget https://github.com/carlospolop/PEASS-ng/releases/latest/download/winPEASx86.exe -O winpeas32.exe
 wget https://github.com/carlospolop/PEASS-ng/releases/latest/download/winPEAS.bat -O winpeas.bat
 wget https://github.com/carlospolop/PEASS-ng/releases/latest/download/linpeas.sh -O linpeas.sh
 wget https://raw.githubusercontent.com/ohpe/juicy-potato/master/CLSID/GetCLSID.ps1 -O getclsid.ps1
@@ -40,10 +40,10 @@ wget https://github.com/int0x33/nc.exe/raw/master/nc64.exe -O nc64.exe
 # now get windows-binaries in /usr/share
 cd ${this_dir}/files
 
-ln -s /usr/share/windows-binaries/nc.exe
+ln -s /usr/share/windows-binaries/nc.exe nc32.exe
 ln -s /usr/share/windows-resources/binaries/whoami.exe
-ln -s /usr/share/windows-resources/mimikatz/x64/mimikatz.exe mimikatzx64.exe
-ln -s /usr/share/windows-resources/mimikatz/Win32/mimikatz.exe mimikatzx86.exe
+ln -s /usr/share/windows-resources/mimikatz/x64/mimikatz.exe mimikatz64.exe
+ln -s /usr/share/windows-resources/mimikatz/Win32/mimikatz.exe mimikatz32.exe
 
 # now get binaries that were possibly downloaded to /opt/
 
