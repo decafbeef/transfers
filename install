@@ -34,6 +34,7 @@ wget https://github.com/r3motecontrol/Ghostpack-CompiledBinaries/raw/master/Seat
 wget https://raw.githubusercontent.com/Kevin-Robertson/Powermad/master/Powermad.ps1 -O powermad.ps1
 wget https://github.com/r3motecontrol/Ghostpack-CompiledBinaries/raw/master/Rubeus.exe -O rubeus.exe
 wget https://github.com/BloodHoundAD/BloodHound/raw/master/Collectors/SharpHound.exe -O sharphound.exe
+wget https://github.com/int0x33/nc.exe/raw/master/nc64.exe -O nc64.exe
 
 
 # now get windows-binaries in /usr/share
